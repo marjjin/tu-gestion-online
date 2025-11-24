@@ -1,0 +1,199 @@
+.panel-logo-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(45, 108, 223, 0.1);
+}
+.panel-logo-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: #fff;
+  letter-spacing: 1px;
+}
+.panel-header.minimal {
+  background: none;
+  box-shadow: none;
+  border-bottom: 1px solid #e0eafc;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.panel-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.panel-header-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(45, 108, 223, 0.1);
+}
+.panel-user {
+  font-size: 1rem;
+  color: #2d6cdf;
+  font-weight: 500;
+  background: #f5f8ff;
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.7rem;
+}
+.panel-logout {
+  background: #e53e3e;
+  border: none;
+  border-radius: 1rem;
+  width: 56px;
+  height: 56px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  box-shadow: 0 2px 8px rgba(229, 62, 62, 0.1);
+  padding: 2px;
+}
+.panel-logout svg {
+  display: block;
+  width: 40px;
+  height: 40px;
+}
+.panel-logout:hover {
+  background: #c53030;
+}
+.panel-container {
+  display: flex;
+  min-height: 100vh;
+  background: radial-gradient(circle at 60% 40%, #e0eafc 0%, #b6c6e6 100%);
+}
+
+.panel-sidebar {
+  width: 220px;
+  background: #2d6cdf;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+  box-shadow: 2px 0 16px rgba(45, 108, 223, 0.08);
+}
+
+.panel-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.panel-menu-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.1rem;
+  padding: 0.8rem 0;
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.panel-menu-btn.active,
+.panel-menu-btn:hover {
+  background: #fff;
+  color: #2d6cdf;
+}
+
+.panel-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.panel-user {
+  font-size: 1.1rem;
+  color: #2d6cdf;
+  font-weight: 600;
+}
+.panel-logout {
+  background: #e53e3e;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.panel-logout:hover {
+  background: #c53030;
+}
+
+.panel-content {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px rgba(45, 108, 223, 0.08);
+  padding: 2rem;
+  min-height: 400px;
+}
+.panel-content h1 {
+  font-size: 2rem;
+  color: #2d6cdf;
+  margin-bottom: 1rem;
+}
+.panel-add-btn {
+  background: #2d6cdf;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: background 0.2s;
+}
+.panel-add-btn:hover {
+  background: #1a237e;
+}
+
+@media (max-width: 800px) {
+  .panel-container {
+    flex-direction: column;
+  }
+  .panel-sidebar {
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    padding: 1rem 0.5rem;
+  }
+  .panel-menu-btn {
+    margin: 0 0.5rem;
+    padding: 0.5rem 0.8rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .panel-main {
+    padding: 0.5rem;
+  }
+  .panel-content {
+    padding: 1rem;
+    min-height: 200px;
+  }
+  .panel-content h1 {
+    font-size: 1.2rem;
+  }
+}
