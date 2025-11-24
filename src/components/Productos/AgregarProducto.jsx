@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../supabase";
-import "./agregarProducto.css";
+import "./agregarproducto.css";
 export function AgregarProducto({ onClose, onAdd }) {
   const [nombre, setNombre] = useState("");
   const [categoria, setCategoria] = useState("");
