@@ -1,6 +1,7 @@
 import "../style/panel.css";
 import { useState } from "react";
 import logo from "../assets/logo.png";
+import { Productos } from "./Productos/Productos";
 import { ButtonCerrarSesion } from "./ButtonCerrarSesion";
 
 const menuOptions = [
@@ -42,8 +43,14 @@ export function Panel({ email }) {
           <ButtonCerrarSesion />
         </header>
         <section className="panel-content">
-          <h1>{menuOptions.find((o) => o.key === selected)?.label}</h1>
-          <p>Contenido de la sección {selected}.</p>
+          {selected === "productos" ? (
+            <Productos />
+          ) : (
+            <>
+              <h1>{menuOptions.find((o) => o.key === selected)?.label}</h1>
+              <p>Contenido de la sección {selected}.</p>
+            </>
+          )}
         </section>
       </main>
     </div>

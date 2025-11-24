@@ -1,0 +1,104 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(44, 62, 80, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px rgba(45, 108, 223, 0.15);
+  padding: 2rem 2.5rem;
+  min-width: 340px;
+  max-width: 95vw;
+  width: 370px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form-agregar-producto label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  color: #2d6cdf;
+  margin-bottom: 0.7rem;
+}
+.form-agregar-producto input {
+  margin-top: 0.3rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: 0.4rem;
+  border: 1.2px solid #cfd8dc;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.18s;
+}
+.form-agregar-producto input:focus {
+  border-color: #2d6cdf;
+}
+.form-agregar-producto select {
+  margin-top: 0.3rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: 0.4rem;
+  border: 1.2px solid #cfd8dc;
+  font-size: 1rem;
+  outline: none;
+  background: #f5f8ff;
+  color: #2d6cdf;
+  transition: border 0.18s, background 0.18s;
+}
+.form-agregar-producto select:focus {
+  border-color: #2d6cdf;
+  background: #e3edff;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.btn-agregar {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 0.4rem;
+  padding: 0.5rem 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.btn-agregar:hover {
+  background: #1e40af;
+}
+
+.btn-cancelar {
+  background: #fff;
+  color: #2563eb;
+  border: 1.2px solid #2563eb;
+  border-radius: 0.4rem;
+  padding: 0.5rem 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+}
+.btn-cancelar:hover {
+  background: #2563eb;
+  color: #fff;
+}
+
+.error-msg {
+  color: #d32f2f;
+  font-size: 0.98rem;
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+  text-align: left;
+}
