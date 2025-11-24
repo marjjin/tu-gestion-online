@@ -20,6 +20,8 @@ export function Login() {
     if (error) {
       console.log("Error Supabase:", error);
       setError(error.message || "Usuario o contraseña incorrectos");
+    } else {
+      window.location.href = "/dashboard";
     }
     setLoading(false);
   }
@@ -33,6 +35,7 @@ export function Login() {
         <form onSubmit={handleLogin}>
           <input
             type="email"
+            name="email"
             placeholder="Correo electrónico"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -40,6 +43,7 @@ export function Login() {
           />
           <input
             type="password"
+            name="password"
             placeholder="Contraseña"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
