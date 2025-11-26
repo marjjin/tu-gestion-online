@@ -145,7 +145,7 @@
   border-radius: 1rem;
   box-shadow: 0 4px 24px rgba(45, 108, 223, 0.08);
   padding: 2rem;
-  min-height: 400px;
+  min-height: 80%;
 }
 .panel-content h1 {
   font-size: 2rem;

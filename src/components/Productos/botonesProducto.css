@@ -1,0 +1,9 @@
+/* Botones principales */
+.productos-btn-small {
+  padding: 0.32rem 1rem;
+  font-size: 0.98rem;
+  min-width: 110px;
+  max-width: 140px;
+  border-radius: 0.4rem;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+}

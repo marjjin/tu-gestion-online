@@ -1,0 +1,74 @@
+.modal-editar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(45, 108, 223, 0.13);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+.modal-editar-content {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px rgba(45, 108, 223, 0.18);
+  padding: 2rem 2.5rem;
+  min-width: 320px;
+  max-width: 90vw;
+  text-align: center;
+}
+.form-editar-producto {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 1rem;
+}
+.form-editar-producto label {
+  font-weight: 600;
+  color: #2563eb;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.form-editar-producto input {
+  margin-top: 0.3rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1.2px solid #cfd8dc;
+  font-size: 1rem;
+  outline: none;
+  background: #f5f8ff;
+  color: #2d6cdf;
+}
+.modal-editar-actions {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+.btn-guardar {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.btn-cancelar {
+  background: #f5f8ff;
+  color: #2563eb;
+  border: 1.2px solid #2563eb;
+  border-radius: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.btn-cancelar:hover {
+  background: #2563eb;
+  color: #fff;
+}

@@ -1,0 +1,45 @@
+/* Estilos para el menú de acciones de producto */
+.menu-acciones-producto {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.menu-puntos-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.18s;
+}
+.menu-puntos-btn:hover {
+  background: #e3edff;
+}
+.menu-acciones-lista {
+  position: absolute;
+  top: 2.2rem;
+  right: 0;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(45, 108, 223, 0.13);
+  border-radius: 0.6rem;
+  padding: 0.5rem 0.7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  z-index: 10;
+  min-width: 120px;
+  animation: fadeInMenu 0.18s;
+}
+@keyframes fadeInMenu {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

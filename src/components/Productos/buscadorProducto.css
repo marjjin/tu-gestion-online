@@ -1,0 +1,33 @@
+/* Buscador de productos */
+.productos-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.productos-search-input {
+  flex: 0.7;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1.2px solid #cfd8dc;
+  font-size: 0.98rem;
+  outline: none;
+  background: #f5f8ff;
+  color: #2d6cdf;
+}
+.productos-search-input:focus {
+  border-color: #2d6cdf;
+}
+.productos-filter-btn {
+  background: #f5f8ff;
+  border: none;
+  border-radius: 0.4rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.18s;
+}
+.productos-filter-btn:hover {
+  background: #e3edff;
+}
