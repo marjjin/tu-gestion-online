@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../supabase";
-import { Panel } from "../components/Panel";
+import { Panel } from "../components/panel";
 
 export function Dashboard() {
   const [session, setSession] = useState(null);
