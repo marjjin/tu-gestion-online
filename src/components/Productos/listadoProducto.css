@@ -9,14 +9,14 @@
   height: 100%;
 }
 /* eliminado max-width para ocupar todo el ancho */
-}
+
 .producto-row {
   display: flex;
   align-items: center;
   background: #fff;
   border-radius: 0.7rem;
   box-shadow: 0 2px 8px rgba(45, 108, 223, 0.08);
-  padding: 1rem 1.5rem;
+  padding: 1rem 1.4rem;
   gap: 0.8rem;
   width: 100%;
   box-sizing: border-box;
