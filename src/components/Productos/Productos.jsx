@@ -6,6 +6,7 @@ import { MenuAccionesProducto } from "./MenuAccionesProdcuto";
 import { ModalEliminarProducto } from "./ModalEliminarProducto";
 import { ModalEditarProducto } from "./ModalEditarProducto";
 import { ModalDetallesProducto } from "./ModalDetallesProducto";
+import { ButtonFilter } from "./ButtonFilter";
 import "./productos.css";
 
 export function Productos() {
@@ -134,20 +135,12 @@ export function Productos() {
               value={busqueda}
               onChange={(e) => setBusqueda(e.target.value)}
             />
-            <button className="productos-filter-btn" title="Filtrar">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="22"
-                height="22"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="#2563eb"
-                  d="M3 6a1 1 0 0 1 1-1h16a1 1 0 0 1 .8 1.6l-5.6 7.47V19a1 1 0 0 1-1.45.89l-3-1.5A1 1 0 0 1 10 17.5v-2.43L4.2 6.6A1 1 0 0 1 3 6zm3.38 1l5.12 6.82a1 1 0 0 1 .2.6v2.68l1 .5v-3.18a1 1 0 0 1 .2-.6L17.62 7H6.38z"
-                />
-              </svg>
-            </button>
+            {/* Renderizar el botón de filtro con modal */}
+            <ButtonFilter
+              productos={productos}
+              categorias={categorias}
+              onFilter={setProductosFiltrados}
+            />
           </div>
         </div>
       </div>
