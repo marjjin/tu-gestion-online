@@ -207,7 +207,11 @@ export function CrudCategorias({ onClose }) {
                     </button>
                     <button
                       className="btn-eliminar"
-                      onClick={() => setConfirmDeleteIdx(categorias.findIndex(c => c.id === cat.id))}
+                      onClick={() =>
+                        setConfirmDeleteIdx(
+                          categorias.findIndex((c) => c.id === cat.id)
+                        )
+                      }
                     >
                       Eliminar
                     </button>

@@ -1,0 +1,114 @@
+.hamburger-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(45, 108, 223, 0.1);
+  margin-right: 0.7rem;
+}
+/* Header móvil con botón y correo */
+.hamburger-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 1000;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 0.5rem 1rem;
+  gap: 1rem;
+}
+.hamburger-user {
+  font-size: 1rem;
+  color: #2563eb;
+  font-weight: 500;
+  background: #f5f8ff;
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.7rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60vw;
+}
+.hamburger-btn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  margin-right: 1rem;
+}
+.hamburger-icon {
+  display: block;
+}
+/* Fondo semitransparente al abrir menú */
+.hamburger-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(44, 62, 80, 0.18);
+  z-index: 1199;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  animation: fadeInMenuBg 0.18s;
+}
+
+@keyframes fadeInMenuBg {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.hamburger-menu {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-top: 1.2rem;
+  background: #fff;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.13);
+  border-radius: 1rem;
+  padding: 1.2rem 2rem;
+  gap: 1.2rem;
+  min-width: 220px;
+  max-width: 90vw;
+  animation: fadeInMenu 0.18s;
+}
+.hamburger-menu a {
+  color: #2563eb;
+  text-decoration: none;
+  font-size: 1.2rem;
+  padding: 0.7rem 1.5rem;
+  border-radius: 0.7rem;
+  transition: background 0.18s, color 0.18s;
+  font-weight: 600;
+}
+.hamburger-menu a:hover {
+  background: #e3edff;
+  color: #1e40af;
+}
+.hamburger-logout {
+  margin-top: 1.5rem;
+  background: #e53e3e;
+  color: #fff !important;
+  border-radius: 0.7rem;
+  padding: 0.7rem 1.5rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: background 0.18s;
+}
+.hamburger-logout:hover {
+  background: #c53030;
+}
+@media (min-width: 801px) {
+  .hamburger-nav {
+    display: none;
+  }
+}

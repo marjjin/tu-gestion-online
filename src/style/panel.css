@@ -1,3 +1,23 @@
+/* Mostrar el botón de logout solo en desktop */
+/* Botón flotante fijo a la derecha arriba, estilo destacado */
+/* Botón flotante fijo a la esquina superior derecha */
+.panel-logout-desktop {
+  display: block;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 2000;
+}
+@media (max-width: 800px) {
+  .panel-logout-desktop {
+    display: none !important;
+  }
+}
+@media (max-width: 800px) {
+  .panel-sidebar {
+    display: none !important;
+  }
+}
 .panel-logo-img {
   width: 48px;
   height: 48px;

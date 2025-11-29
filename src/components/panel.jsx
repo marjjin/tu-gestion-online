@@ -3,6 +3,7 @@ import { useState } from "react";
 import logo from "../assets/logo.png";
 import { Productos } from "./Productos/Productos";
 import { ButtonCerrarSesion } from "./ButtonCerrarSesion";
+import { HamburgerMenu } from "./HamburgerMenu";
 
 const menuOptions = [
   { key: "productos", label: "Productos" },
@@ -17,6 +18,7 @@ export function Panel({ email }) {
 
   return (
     <div className="panel-container">
+      <HamburgerMenu email={email} />
       <aside className="panel-sidebar">
         <img src={logo} alt="Logo" className="panel-logo-img" />
         <h2 className="panel-logo-text">Gestion Live</h2>
@@ -40,7 +42,9 @@ export function Panel({ email }) {
             <img src={logo} alt="Logo" className="panel-header-logo" />
             <span className="panel-user">{email}</span>
           </div>
-          <ButtonCerrarSesion />
+          <div className="panel-logout-desktop">
+            <ButtonCerrarSesion />
+          </div>
         </header>
         <section className="panel-content">
           {selected === "productos" ? (

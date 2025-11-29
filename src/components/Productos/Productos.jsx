@@ -8,6 +8,7 @@ import { ModalEditarProducto } from "./ModalEditarProducto";
 import { ModalDetallesProducto } from "./ModalDetallesProducto";
 import { ButtonFilter } from "./ButtonFilter";
 import "./productos.css";
+import "./botonFab.css";
 
 export function Productos() {
   const [showModal, setShowModal] = useState(false);
@@ -36,6 +37,7 @@ export function Productos() {
     open: false,
     producto: null,
   });
+  const [showActionsModalMobile, setShowActionsModalMobile] = useState(false);
 
   useEffect(() => {
     const fetchUserAndData = async () => {
@@ -121,36 +123,73 @@ export function Productos() {
     <div className="productos-container">
       <div className="productos-header-flex">
         <h1 className="productos-title-left">Productos</h1>
-        <div className="productos-actions-title-row">
-          <button
-            className="productos-btn productos-btn-small"
-            onClick={() => setShowModal(true)}
+        {/* Buscador y filtro debajo del título */}
+      </div>
+      <div className="productos-search-row-mobile">
+        <input
+          type="text"
+          className="productos-search-input"
+          placeholder="Buscar productos..."
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
+        />
+        <ButtonFilter
+          productos={productos}
+          categorias={categorias}
+          onFilter={setProductosFiltradosPorFiltro}
+        />
+      </div>
+      <div className="productos-actions-title-row">
+        {/* Botones solo desktop/tablet */}
+        <button
+          className="productos-btn productos-btn-small productos-btn-desktop"
+          onClick={() => setShowModal(true)}
+        >
+          Agregar producto
+        </button>
+        <button
+          className="productos-btn productos-btn-small productos-btn-desktop"
+          onClick={() => setShowCategorias(true)}
+        >
+          Categorías
+        </button>
+      </div>
+      {/* Botón flotante + solo mobile */}
+      <button
+        className="productos-fab-mobile"
+        title="Acciones"
+        onClick={() => setShowActionsModalMobile(true)}
+      >
+        +
+      </button>
+      {showActionsModalMobile && (
+        <div
+          className="productos-actions-modal-bg-mobile"
+          onClick={() => setShowActionsModalMobile(false)}
+        >
+          <div
+            className="productos-actions-modal-mobile"
+            onClick={(e) => e.stopPropagation()}
           >
-            Agregar producto
-          </button>
-          <button
-            className="productos-btn productos-btn-small"
-            onClick={() => setShowCategorias(true)}
-          >
-            Categorías
-          </button>
-          <div className="productos-search-bar productos-search-inline">
-            <input
-              type="text"
-              className="productos-search-input"
-              placeholder="Buscar productos..."
-              value={busqueda}
-              onChange={(e) => setBusqueda(e.target.value)}
-            />
-            {/* Renderizar el botón de filtro con modal */}
-            <ButtonFilter
-              productos={productos}
-              categorias={categorias}
-              onFilter={setProductosFiltradosPorFiltro}
-            />
+            <button
+              onClick={() => {
+                setShowModal(true);
+                setShowActionsModalMobile(false);
+              }}
+            >
+              Agregar producto
+            </button>
+            <button
+              onClick={() => {
+                setShowCategorias(true);
+                setShowActionsModalMobile(false);
+              }}
+            >
+              Categorías
+            </button>
           </div>
         </div>
-      </div>
+      )}
       <div className="productos-list">
         {loading ? (
           <p>Cargando productos...</p>
