@@ -59,30 +59,25 @@ export function AgregarProducto({ onClose, onAdd }) {
       return;
     }
     // Guardar en Supabase
-    const { error: err } = await supabase.from("productos").insert([
-      {
-        nombre,
-        categoria_id: categoriaObj.id,
-        precio: parseFloat(precioCosto), // Guardar como 'precio'
-        precio_final: parseFloat(precioFinal),
-        porcentaje_ganancia: parseFloat(porcentaje),
-        stock: parseInt(stock),
-        user_id: userId,
-      },
-    ]);
-    if (err) {
-      setError(err.message || "Error al guardar producto");
+    const { data, error: err } = await supabase
+      .from("productos")
+      .insert([
+        {
+          nombre,
+          categoria_id: categoriaObj.id,
+          precio: parseFloat(precioCosto), // Guardar como 'precio'
+          precio_final: parseFloat(precioFinal),
+          porcentaje_ganancia: parseFloat(porcentaje),
+          stock: parseInt(stock),
+          user_id: userId,
+        },
+      ])
+      .select();
+    if (err || !data || !data.length) {
+      setError((err && err.message) || "Error al guardar producto");
       return;
     }
-    onAdd({
-      nombre,
-      categoria,
-      precio: parseFloat(precioCosto),
-      precio_final: parseFloat(precioFinal),
-      porcentaje_ganancia: parseFloat(porcentaje),
-      stock: parseInt(stock),
-      categoria_id: categoriaObj.id,
-    });
+    onAdd(data[0]);
     onClose();
   };
 

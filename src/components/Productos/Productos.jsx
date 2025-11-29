@@ -21,6 +21,7 @@ export function Productos() {
   const [loading, setLoading] = useState(false);
   const debounceRef = useRef();
   const [categorias, setCategorias] = useState([]);
+  // Eliminado reloadProductos, solo actualizamos estado local
 
   // Estados para los modales CRUD
   const [modalEliminar, setModalEliminar] = useState({
@@ -68,17 +69,20 @@ export function Productos() {
     fetchUserAndData();
   }, []);
 
-  const handleAddProducto = async (nuevoProducto) => {
-    // Guardar en Supabase
-    const { data, error } = await supabase
-      .from("productos")
-      .insert([{ ...nuevoProducto, user_id: userId }])
-      .select();
-    if (!error && data && data.length > 0) {
-      // Actualiza el estado sin refrescar
-      setProductos((prev) => [data[0], ...prev]);
-      setProductosFiltrados((prev) => [data[0], ...prev]);
-    }
+  const handleAddProducto = (productoInsertado) => {
+    // Solo actualizamos el estado local con el producto retornado por Supabase
+    setProductos((prev) => {
+      if (prev.some((p) => p.id === productoInsertado.id)) return prev;
+      return [productoInsertado, ...prev];
+    });
+    setProductosFiltradosPorFiltro((prev) => {
+      if (prev.some((p) => p.id === productoInsertado.id)) return prev;
+      return [productoInsertado, ...prev];
+    });
+    setProductosFiltrados((prev) => {
+      if (prev.some((p) => p.id === productoInsertado.id)) return prev;
+      return [productoInsertado, ...prev];
+    });
   };
 
   // Helper para obtener el nombre de la categoría
@@ -216,8 +220,15 @@ export function Productos() {
               .delete()
               .eq("id", modalEliminar.producto.id);
             if (!error) {
-              setProductos(
-                productos.filter((p) => p.id !== modalEliminar.producto.id)
+              // Solo actualizamos el estado local, no recargamos desde Supabase
+              setProductos((prev) =>
+                prev.filter((p) => p.id !== modalEliminar.producto.id)
+              );
+              setProductosFiltradosPorFiltro((prev) =>
+                prev.filter((p) => p.id !== modalEliminar.producto.id)
+              );
+              setProductosFiltrados((prev) =>
+                prev.filter((p) => p.id !== modalEliminar.producto.id)
               );
             }
             setModalEliminar({ open: false, producto: null });
@@ -244,8 +255,15 @@ export function Productos() {
               .eq("id", editado.id)
               .select();
             if (!error && data && data.length > 0) {
-              setProductos(
-                productos.map((p) => (p.id === editado.id ? data[0] : p))
+              // Solo actualizamos el estado local, no recargamos desde Supabase
+              setProductos((prev) =>
+                prev.map((p) => (p.id === editado.id ? data[0] : p))
+              );
+              setProductosFiltradosPorFiltro((prev) =>
+                prev.map((p) => (p.id === editado.id ? data[0] : p))
+              );
+              setProductosFiltrados((prev) =>
+                prev.map((p) => (p.id === editado.id ? data[0] : p))
               );
             }
             setModalEditar({ open: false, producto: null });
