@@ -5,7 +5,7 @@ import "./crudCategorias.css";
 export function CrudCategorias({ onClose }) {
   const [categorias, setCategorias] = useState([]);
   const [nuevaCategoria, setNuevaCategoria] = useState("");
-  const [editIdx, setEditIdx] = useState(null);
+  const [editId, setEditId] = useState(null);
   const [editValue, setEditValue] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -45,9 +45,10 @@ export function CrudCategorias({ onClose }) {
   }, []);
 
   // Editar categoría en Supabase
-  const handleEdit = (idx) => {
-    setEditIdx(idx);
-    setEditValue(categorias[idx].nombre);
+  const handleEdit = (id) => {
+    const cat = categorias.find((c) => c.id === id);
+    setEditId(id);
+    setEditValue(cat ? cat.nombre : "");
     setError("");
   };
 
@@ -79,28 +80,30 @@ export function CrudCategorias({ onClose }) {
       setError("El nombre es obligatorio");
       return;
     }
+    const catActual = categorias.find((cat) => cat.id === editId);
     if (
       categorias.some((cat) => cat.nombre === editValue.trim()) &&
-      editValue.trim() !== categorias[editIdx].nombre
+      editValue.trim() !== (catActual ? catActual.nombre : "")
     ) {
       setError("La categoría ya existe");
       return;
     }
     setError("");
     setLoading(true);
-    const id = categorias[editIdx].id;
     const { error: err } = await supabase
       .from("categorias")
       .update({ nombre: editValue.trim() })
-      .eq("id", id);
+      .eq("id", editId);
     if (err) {
       setError(err.message || "Error al editar");
       console.error("Supabase error:", err);
     } else {
-      const updated = [...categorias];
-      updated[editIdx].nombre = editValue.trim();
-      setCategorias(updated);
-      setEditIdx(null);
+      setCategorias((prev) =>
+        prev.map((cat) =>
+          cat.id === editId ? { ...cat, nombre: editValue.trim() } : cat
+        )
+      );
+      setEditId(null);
       setEditValue("");
     }
     setLoading(false);
@@ -171,9 +174,9 @@ export function CrudCategorias({ onClose }) {
           {categoriasFiltradas.length === 0 ? (
             <li className="categorias-vacio">No hay categorías.</li>
           ) : (
-            categoriasFiltradas.map((cat, idx) => (
-              <li key={cat.id || idx} className="categoria-item">
-                {editIdx === idx ? (
+            categoriasFiltradas.map((cat) => (
+              <li key={cat.id} className="categoria-item">
+                {editId === cat.id ? (
                   <div className="categoria-edit-row">
                     <input
                       type="text"
@@ -187,7 +190,7 @@ export function CrudCategorias({ onClose }) {
                       </button>
                       <button
                         className="btn-cancelar"
-                        onClick={() => setEditIdx(null)}
+                        onClick={() => setEditId(null)}
                       >
                         Cancelar
                       </button>
@@ -198,13 +201,13 @@ export function CrudCategorias({ onClose }) {
                     <span>{cat.nombre}</span>
                     <button
                       className="btn-editar"
-                      onClick={() => handleEdit(idx)}
+                      onClick={() => handleEdit(cat.id)}
                     >
                       Editar
                     </button>
                     <button
                       className="btn-eliminar"
-                      onClick={() => setConfirmDeleteIdx(idx)}
+                      onClick={() => setConfirmDeleteIdx(categorias.findIndex(c => c.id === cat.id))}
                     >
                       Eliminar
                     </button>
