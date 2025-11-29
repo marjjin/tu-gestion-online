@@ -34,6 +34,7 @@ export function ButtonFilter({ onFilter, productos, categorias }) {
       setPrecioMax(max);
       setPrecioSel([min, max]);
     }
+    console.log('Modal de filtros abierto');
     setOpen(true);
   };
 
