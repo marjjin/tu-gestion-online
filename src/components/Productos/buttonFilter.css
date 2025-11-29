@@ -1,8 +1,6 @@
 .price-slider-label-thumb {
   position: absolute;
   top: -42px;
-  left: 50%;
-  transform: translateX(-50%);
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(38, 99, 235, 0.08);
@@ -14,10 +12,11 @@
   border: 1px solid #e0e7ff;
   z-index: 20;
   min-width: 60px;
-  max-width: none;
+  max-width: 120px;
   white-space: normal;
-  overflow: visible;
+  overflow: hidden;
   pointer-events: none;
+  transition: left 0.18s, transform 0.18s;
 }
 .price-slider-label {
   font-weight: 600;

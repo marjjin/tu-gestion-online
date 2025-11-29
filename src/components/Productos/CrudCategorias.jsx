@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { supabase } from "../../supabase";
 import "./crudCategorias.css";
 
@@ -10,6 +10,10 @@ export function CrudCategorias({ onClose }) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [userId, setUserId] = useState(null);
+  const [searchCat, setSearchCat] = useState("");
+  const [debouncedSearchCat, setDebouncedSearchCat] = useState("");
+  const debounceTimeout = useRef();
+  const [confirmDeleteIdx, setConfirmDeleteIdx] = useState(null);
 
   // Cargar categorías desde Supabase al abrir el modal
   useEffect(() => {
@@ -118,6 +122,20 @@ export function CrudCategorias({ onClose }) {
     setLoading(false);
   };
 
+  // Debounce para búsqueda
+  useEffect(() => {
+    if (debounceTimeout.current) clearTimeout(debounceTimeout.current);
+    debounceTimeout.current = setTimeout(() => {
+      setDebouncedSearchCat(searchCat);
+    }, 400);
+    return () => clearTimeout(debounceTimeout.current);
+  }, [searchCat]);
+
+  // Filtrar categorías por búsqueda debounced
+  const categoriasFiltradas = categorias.filter((cat) =>
+    cat.nombre.toLowerCase().includes(debouncedSearchCat.toLowerCase())
+  );
+
   return (
     <div className="modal-overlay">
       <div className="modal-content">
@@ -133,31 +151,48 @@ export function CrudCategorias({ onClose }) {
             Agregar
           </button>
         </div>
+        <input
+          type="text"
+          className="categorias-search"
+          placeholder="Buscar categoría..."
+          value={searchCat}
+          onChange={(e) => setSearchCat(e.target.value)}
+          style={{
+            marginBottom: "8px",
+            padding: "6px 10px",
+            borderRadius: "6px",
+            border: "1.5px solid #dbeafe",
+            fontSize: "1rem",
+            width: "100%",
+          }}
+        />
         {error && <div className="error-msg">{error}</div>}
-        <ul className="categorias-list">
-          {categorias.length === 0 ? (
+        <ul className="categorias-list-scroll categorias-list">
+          {categoriasFiltradas.length === 0 ? (
             <li className="categorias-vacio">No hay categorías.</li>
           ) : (
-            categorias.map((cat, idx) => (
+            categoriasFiltradas.map((cat, idx) => (
               <li key={cat.id || idx} className="categoria-item">
                 {editIdx === idx ? (
-                  <>
+                  <div className="categoria-edit-row">
                     <input
                       type="text"
                       value={editValue}
                       onChange={(e) => setEditValue(e.target.value)}
                       className="input-edit"
                     />
-                    <button className="btn-guardar" onClick={handleSaveEdit}>
-                      Guardar
-                    </button>
-                    <button
-                      className="btn-cancelar"
-                      onClick={() => setEditIdx(null)}
-                    >
-                      Cancelar
-                    </button>
-                  </>
+                    <div className="edit-btn-group">
+                      <button className="btn-guardar" onClick={handleSaveEdit}>
+                        Guardar
+                      </button>
+                      <button
+                        className="btn-cancelar"
+                        onClick={() => setEditIdx(null)}
+                      >
+                        Cancelar
+                      </button>
+                    </div>
+                  </div>
                 ) : (
                   <>
                     <span>{cat.nombre}</span>
@@ -169,7 +204,7 @@ export function CrudCategorias({ onClose }) {
                     </button>
                     <button
                       className="btn-eliminar"
-                      onClick={() => handleDelete(idx)}
+                      onClick={() => setConfirmDeleteIdx(idx)}
                     >
                       Eliminar
                     </button>
@@ -179,6 +214,36 @@ export function CrudCategorias({ onClose }) {
             ))
           )}
         </ul>
+
+        {/* Modal de confirmación de borrado */}
+        {confirmDeleteIdx !== null && (
+          <div className="modal-confirm-overlay">
+            <div className="modal-confirm-content">
+              <h3>¿Eliminar categoría?</h3>
+              <p>
+                ¿Seguro que deseas eliminar "
+                {categoriasFiltradas[confirmDeleteIdx]?.nombre || ""}"?
+              </p>
+              <div className="modal-confirm-actions">
+                <button
+                  className="btn-eliminar"
+                  onClick={() => {
+                    setConfirmDeleteIdx(null);
+                    handleDelete(confirmDeleteIdx);
+                  }}
+                >
+                  Sí, eliminar
+                </button>
+                <button
+                  className="btn-cancelar"
+                  onClick={() => setConfirmDeleteIdx(null)}
+                >
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
         <div className="modal-actions">
           <button className="btn-cancelar" onClick={onClose}>
             Cerrar

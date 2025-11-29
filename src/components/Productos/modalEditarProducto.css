@@ -1,3 +1,18 @@
+.form-editar-producto select {
+  margin-top: 0.3rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1.2px solid #cfd8dc;
+  font-size: 1rem;
+  outline: none;
+  background: #f5f8ff;
+  color: #2d6cdf;
+  transition: border 0.18s, background 0.18s;
+}
+.form-editar-producto select:focus {
+  border-color: #2d6cdf;
+  background: #e3edff;
+}
 .modal-editar-overlay {
   position: fixed;
   top: 0;

@@ -1,4 +1,27 @@
 /* Header flex para alinear título y acciones en una sola fila */
+.productos-container {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px rgba(45, 108, 223, 0.08);
+  padding: 1.2rem 2rem 2rem 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  @import "./menuAccionesProducto.css";
+  @import "./buscadorProducto.css";
+  @import "./listadoProducto.css";
+  @import "./botonesProducto.css";
+  @import "./layoutProducto.css";
+  flex-direction: column;
+  align-items: center;
+  max-height: 70%;
+  overflow-y: auto;
+  margin-bottom: 0;
+  box-sizing: border-box;
+}
+
 .productos-header-flex {
   display: flex;
   align-items: center;
@@ -174,28 +197,6 @@
   flex-direction: column;
   align-items: center;
   overflow-y: auto;
-  box-sizing: border-box;
-}
-.productos-container {
-  background: #fff;
-  border-radius: 1rem;
-  box-shadow: 0 4px 24px rgba(45, 108, 223, 0.08);
-  padding: 1.2rem 2rem 2rem 2rem;
-  max-width: 700px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  @import "./menuAccionesProducto.css";
-  @import "./buscadorProducto.css";
-  @import "./listadoProducto.css";
-  @import "./botonesProducto.css";
-  @import "./layoutProducto.css";
-  flex-direction: column;
-  align-items: center;
-  max-height: 70%;
-  overflow-y: auto;
-  margin-bottom: 0;
   box-sizing: border-box;
 }
 

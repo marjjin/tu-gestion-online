@@ -19,7 +19,7 @@ export function Panel({ email }) {
     <div className="panel-container">
       <aside className="panel-sidebar">
         <img src={logo} alt="Logo" className="panel-logo-img" />
-        <h2 className="panel-logo-text">Tu Gestión Online</h2>
+        <h2 className="panel-logo-text">Gestion Live</h2>
         <nav>
           {menuOptions.map((option) => (
             <button

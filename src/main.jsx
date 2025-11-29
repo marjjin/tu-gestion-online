@@ -1,3 +1,5 @@
+import "rc-slider/assets/index.css";
+import "./style/global.css";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";

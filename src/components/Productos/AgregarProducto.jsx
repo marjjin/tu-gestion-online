@@ -4,7 +4,9 @@ import "./agregarproducto.css";
 export function AgregarProducto({ onClose, onAdd }) {
   const [nombre, setNombre] = useState("");
   const [categoria, setCategoria] = useState("");
-  const [precio, setPrecio] = useState("");
+  const [precioCosto, setPrecioCosto] = useState(""); // Usado para el input, pero se guarda en 'precio'
+  const [precioFinal, setPrecioFinal] = useState("");
+  const [porcentaje, setPorcentaje] = useState("");
   const [stock, setStock] = useState("");
   const [error, setError] = useState("");
   const [categorias, setCategorias] = useState([]);
@@ -41,12 +43,12 @@ export function AgregarProducto({ onClose, onAdd }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!nombre || !categoria || !precio || !stock) {
+    if (!nombre || !categoria || !precioCosto || !precioFinal || !stock) {
       setError("Todos los campos son obligatorios");
       return;
     }
-    if (isNaN(precio) || isNaN(stock)) {
-      setError("Precio y stock deben ser números");
+    if (isNaN(precioCosto) || isNaN(precioFinal) || isNaN(stock)) {
+      setError("Precios y stock deben ser números");
       return;
     }
     setError("");
@@ -61,7 +63,9 @@ export function AgregarProducto({ onClose, onAdd }) {
       {
         nombre,
         categoria_id: categoriaObj.id,
-        precio: parseFloat(precio),
+        precio: parseFloat(precioCosto), // Guardar como 'precio'
+        precio_final: parseFloat(precioFinal),
+        porcentaje_ganancia: parseFloat(porcentaje),
         stock: parseInt(stock),
         user_id: userId,
       },
@@ -73,11 +77,36 @@ export function AgregarProducto({ onClose, onAdd }) {
     onAdd({
       nombre,
       categoria,
-      precio: parseFloat(precio),
+      precio: parseFloat(precioCosto),
+      precio_final: parseFloat(precioFinal),
+      porcentaje_ganancia: parseFloat(porcentaje),
       stock: parseInt(stock),
       categoria_id: categoriaObj.id,
     });
     onClose();
+  };
+
+  // Sincroniza porcentaje y precio final
+  const handlePrecioFinalChange = (value) => {
+    setPrecioFinal(value);
+    if (precioCosto && value) {
+      const p =
+        ((parseFloat(value) - parseFloat(precioCosto)) /
+          parseFloat(precioCosto)) *
+        100;
+      setPorcentaje(p.toFixed(2));
+    } else {
+      setPorcentaje("");
+    }
+  };
+  const handlePorcentajeChange = (value) => {
+    setPorcentaje(value);
+    if (precioCosto && value) {
+      const pf = parseFloat(precioCosto) * (1 + parseFloat(value) / 100);
+      setPrecioFinal(pf.toFixed(2));
+    } else {
+      setPrecioFinal("");
+    }
   };
 
   return (
@@ -109,15 +138,48 @@ export function AgregarProducto({ onClose, onAdd }) {
             </select>
           </label>
           <label>
-            Precio:
+            Precio de costo:
             <input
               type="number"
-              value={precio}
-              onChange={(e) => setPrecio(e.target.value)}
+              value={precioCosto}
+              onChange={(e) => setPrecioCosto(e.target.value)}
               min="0"
               step="0.01"
             />
           </label>
+          <div style={{ display: "flex", gap: "16px", alignItems: "flex-end" }}>
+            <label
+              style={{ display: "flex", flexDirection: "column", flex: 1 }}
+            >
+              Precio final:
+              <input
+                type="number"
+                value={precioFinal}
+                onChange={(e) => handlePrecioFinalChange(e.target.value)}
+                min="0"
+                step="0.01"
+                style={{ width: "100px" }}
+              />
+            </label>
+            <label
+              style={{ display: "flex", flexDirection: "column", flex: 1 }}
+            >
+              % Ganancia:
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "6px" }}
+              >
+                <input
+                  type="number"
+                  value={porcentaje}
+                  onChange={(e) => handlePorcentajeChange(e.target.value)}
+                  min="0"
+                  step="0.01"
+                  style={{ width: "100px" }}
+                />
+                <span style={{ fontWeight: 500, color: "#2563eb" }}>%</span>
+              </div>
+            </label>
+          </div>
           <label>
             Stock:
             <input

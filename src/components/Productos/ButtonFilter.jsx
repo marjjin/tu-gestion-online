@@ -34,7 +34,7 @@ export function ButtonFilter({ onFilter, productos, categorias }) {
       setPrecioMax(max);
       setPrecioSel([min, max]);
     }
-    console.log('Modal de filtros abierto');
+    console.log("Modal de filtros abierto");
     setOpen(true);
   };
 
@@ -217,7 +217,8 @@ export function ButtonFilter({ onFilter, productos, categorias }) {
             <div className="filter-modal-section">
               <div className="filter-section-title">Precio</div>
               <div className="filter-price-slider-row price-slider-rc">
-                {precioSel[1] - precioSel[0] < 3000 ? (
+                {Math.abs(precioSel[1] - precioSel[0]) <
+                (precioMax - precioMin) * 0.05 ? (
                   <div
                     className="price-slider-label-thumb"
                     style={{
@@ -226,6 +227,7 @@ export function ButtonFilter({ onFilter, productos, categorias }) {
                           (precioMax - precioMin)) *
                         100
                       }%`,
+                      transform: "translateX(-50%)",
                       zIndex: 20,
                     }}
                   >
@@ -243,6 +245,8 @@ export function ButtonFilter({ onFilter, productos, categorias }) {
                             (precioMax - precioMin)) *
                           100
                         }%`,
+                        transform: "translateX(-50%)",
+                        zIndex: 20,
                       }}
                     >
                       <span className="price-slider-label">
@@ -257,6 +261,8 @@ export function ButtonFilter({ onFilter, productos, categorias }) {
                             (precioMax - precioMin)) *
                           100
                         }%`,
+                        transform: "translateX(-50%)",
+                        zIndex: 20,
                       }}
                     >
                       <span className="price-slider-label">

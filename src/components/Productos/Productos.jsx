@@ -13,6 +13,8 @@ export function Productos() {
   const [showModal, setShowModal] = useState(false);
   const [showCategorias, setShowCategorias] = useState(false);
   const [productos, setProductos] = useState([]);
+  const [productosFiltradosPorFiltro, setProductosFiltradosPorFiltro] =
+    useState([]);
   const [productosFiltrados, setProductosFiltrados] = useState([]);
   const [busqueda, setBusqueda] = useState("");
   const [userId, setUserId] = useState(null);
@@ -57,6 +59,7 @@ export function Productos() {
         .eq("user_id", user.id);
       if (!prodError) {
         setProductos(productosData || []);
+        setProductosFiltradosPorFiltro(productosData || []);
         setProductosFiltrados(productosData || []);
       }
       if (!catError) setCategorias(categoriasData || []);
@@ -72,9 +75,9 @@ export function Productos() {
       .insert([{ ...nuevoProducto, user_id: userId }])
       .select();
     if (!error && data && data.length > 0) {
-      const nuevos = [...productos, data[0]];
-      setProductos(nuevos);
-      setProductosFiltrados(nuevos);
+      // Actualiza el estado sin refrescar
+      setProductos((prev) => [data[0], ...prev]);
+      setProductosFiltrados((prev) => [data[0], ...prev]);
     }
   };
 
@@ -87,17 +90,17 @@ export function Productos() {
     [categorias]
   );
 
-  // Buscador con debounce
+  // Buscador con debounce sobre productos filtrados por filtro
   useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => {
       if (!busqueda.trim()) {
-        setProductosFiltrados(productos);
+        setProductosFiltrados(productosFiltradosPorFiltro);
         return;
       }
       const filtro = busqueda.trim().toLowerCase();
       setProductosFiltrados(
-        productos.filter(
+        productosFiltradosPorFiltro.filter(
           (prod) =>
             prod.nombre?.toLowerCase().includes(filtro) ||
             getCategoriaNombre(prod.categoria_id)
@@ -108,7 +111,7 @@ export function Productos() {
       );
     }, 500);
     return () => clearTimeout(debounceRef.current);
-  }, [busqueda, productos, getCategoriaNombre]);
+  }, [busqueda, productosFiltradosPorFiltro, getCategoriaNombre]);
 
   return (
     <div className="productos-container">
@@ -139,7 +142,7 @@ export function Productos() {
             <ButtonFilter
               productos={productos}
               categorias={categorias}
-              onFilter={setProductosFiltrados}
+              onFilter={setProductosFiltradosPorFiltro}
             />
           </div>
         </div>
@@ -158,6 +161,18 @@ export function Productos() {
                   {getCategoriaNombre(prod.categoria_id)}
                 </span>
                 <span className="producto-precio-listado">${prod.precio}</span>
+                <span
+                  className="producto-precio-listado"
+                  style={{ color: "#059669", fontWeight: 600 }}
+                >
+                  Final: ${prod.precio_final ?? "-"}
+                </span>
+                <span
+                  className="producto-precio-listado"
+                  style={{ color: "#2563eb", fontWeight: 600 }}
+                >
+                  % {prod.porcentaje_ganancia ?? "-"}
+                </span>
                 <span className="producto-stock-listado">
                   Stock: {prod.stock}
                 </span>
@@ -220,6 +235,8 @@ export function Productos() {
               .update({
                 nombre: editado.nombre,
                 precio: editado.precio,
+                precio_final: editado.precio_final,
+                porcentaje_ganancia: editado.porcentaje_ganancia,
                 stock: editado.stock,
                 categoria_id: editado.categoria_id,
                 detalles: editado.detalles,

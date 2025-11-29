@@ -1,0 +1,6 @@
+/* global.css - centraliza todos los imports globales de estilos */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+/* Agrega aquí otros imports globales de CSS si los necesitas */
+
+/* Tus estilos globales pueden ir debajo de los imports */
