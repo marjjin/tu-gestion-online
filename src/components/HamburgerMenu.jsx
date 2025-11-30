@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./HamburgerMenu.css";
 import logo from "../assets/logo.png";
 
-export function HamburgerMenu({ email }) {
+export function HamburgerMenu({ email, onSelect, onLogout }) {
   const [open, setOpen] = useState(false);
   const menuRef = useRef();
 
@@ -19,11 +19,11 @@ export function HamburgerMenu({ email }) {
   }, [open]);
 
   const menuOptions = [
-    { key: "productos", label: "Productos", to: "/productos" },
-    { key: "ventas", label: "Ventas", to: "/ventas" },
-    { key: "clientes", label: "Clientes", to: "/clientes" },
-    { key: "reportes", label: "Reportes", to: "/reportes" },
-    { key: "configuracion", label: "Configuración", to: "/configuracion" },
+    { key: "productos", label: "Productos" },
+    { key: "ventas", label: "Ventas" },
+    { key: "clientes", label: "Clientes" },
+    { key: "reportes", label: "Reportes" },
+    { key: "configuracion", label: "Configuración" },
   ];
 
   return (
@@ -45,17 +45,26 @@ export function HamburgerMenu({ email }) {
             onClick={(e) => e.stopPropagation()}
           >
             {menuOptions.map((opt) => (
-              <Link key={opt.key} to={opt.to} onClick={() => setOpen(false)}>
+              <button
+                key={opt.key}
+                className="hamburger-menu-btn"
+                onClick={() => {
+                  onSelect(opt.key);
+                  setOpen(false);
+                }}
+              >
                 {opt.label}
-              </Link>
+              </button>
             ))}
-            <Link
-              to="/logout"
-              onClick={() => setOpen(false)}
+            <button
+              onClick={() => {
+                if (onLogout) onLogout();
+                setOpen(false);
+              }}
               className="hamburger-logout"
             >
               Cerrar sesión
-            </Link>
+            </button>
           </div>
         </div>
       )}

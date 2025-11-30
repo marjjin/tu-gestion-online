@@ -93,16 +93,36 @@
   background: #e3edff;
   color: #1e40af;
 }
+.hamburger-menu-btn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 0.7rem;
+  font-size: 1.1rem;
+  padding: 0.7rem 1.2rem;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 1px 4px rgba(37, 99, 235, 0.09);
+  cursor: pointer;
+  transition: background 0.18s;
+  width: 100%;
+  text-align: left;
+}
+.hamburger-menu-btn:hover {
+  background: #1e40af;
+}
 .hamburger-logout {
   margin-top: 1.5rem;
   background: #e53e3e;
-  color: #fff !important;
+  color: #fff;
+  border: none;
   border-radius: 0.7rem;
-  padding: 0.7rem 1.5rem;
-  text-align: center;
-  font-weight: 700;
   font-size: 1.1rem;
+  padding: 0.7rem 1.2rem;
+  margin-top: 0.7rem;
+  box-shadow: 0 1px 4px rgba(229, 62, 62, 0.09);
+  cursor: pointer;
   transition: background 0.18s;
+  width: 100%;
 }
 .hamburger-logout:hover {
   background: #c53030;

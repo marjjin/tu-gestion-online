@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../supabase";
 import { Panel } from "../components/panel";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 
 export function Dashboard() {
   const [session, setSession] = useState(null);
+  const location = useLocation();
 
   useEffect(() => {
     // Verificar sesión al montar
@@ -30,5 +32,18 @@ export function Dashboard() {
 
   if (!session) return <p>Cargando...</p>;
 
-  return <Panel email={session.user.email} />;
+  return (
+    <Routes>
+      <Route path="/" element={<Panel email={session.user.email} />} />
+      <Route path="/productos" element={<Panel email={session.user.email} />} />
+      <Route path="/ventas" element={<Panel email={session.user.email} />} />
+      <Route path="/clientes" element={<Panel email={session.user.email} />} />
+      <Route path="/reportes" element={<Panel email={session.user.email} />} />
+      <Route
+        path="/configuracion"
+        element={<Panel email={session.user.email} />}
+      />
+      <Route path="*" element={<Navigate to="/dashboard/productos" />} />
+    </Routes>
+  );
 }
