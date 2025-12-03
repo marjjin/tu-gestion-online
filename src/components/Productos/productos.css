@@ -42,6 +42,7 @@
   display: flex;
   align-items: center;
   gap: 0.7rem;
+  flex-wrap: wrap;
 }
 
 .productos-btn-small {
@@ -368,7 +369,6 @@
 /* Fila horizontal para buscador y filtro debajo del título */
 .productos-search-row-mobile {
   display: flex;
-  align-items: center;
   gap: 0.7rem;
   margin-bottom: 1.2rem;
   margin-top: 0.2rem;
@@ -379,8 +379,13 @@
 }
 @media (max-width: 799px) {
   .productos-search-row-mobile {
-    margin-bottom: 1.1rem;
+    margin-bottom: 1rem;
     gap: 0.5rem;
+    width: 70vw;
+  }
+  .productos-header-flex {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
 

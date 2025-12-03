@@ -123,37 +123,38 @@ export function Productos() {
     <div className="productos-container">
       <div className="productos-header-flex">
         <h1 className="productos-title-left">Productos</h1>
+        <div className="productos-actions-title-row">
+          {/* Botones solo desktop/tablet */}
+          <button
+            className="productos-btn productos-btn-small productos-btn-desktop"
+            onClick={() => setShowModal(true)}
+          >
+            Agregar producto
+          </button>
+          <button
+            className="productos-btn productos-btn-small productos-btn-desktop"
+            onClick={() => setShowCategorias(true)}
+          >
+            Categorías
+          </button>
+          <div className="productos-search-row-mobile">
+            <input
+              type="text"
+              className="productos-search-input"
+              placeholder="Buscar productos..."
+              value={busqueda}
+              onChange={(e) => setBusqueda(e.target.value)}
+            />
+            <ButtonFilter
+              productos={productos}
+              categorias={categorias}
+              onFilter={setProductosFiltradosPorFiltro}
+            />
+          </div>
+        </div>
         {/* Buscador y filtro debajo del título */}
       </div>
-      <div className="productos-search-row-mobile">
-        <input
-          type="text"
-          className="productos-search-input"
-          placeholder="Buscar productos..."
-          value={busqueda}
-          onChange={(e) => setBusqueda(e.target.value)}
-        />
-        <ButtonFilter
-          productos={productos}
-          categorias={categorias}
-          onFilter={setProductosFiltradosPorFiltro}
-        />
-      </div>
-      <div className="productos-actions-title-row">
-        {/* Botones solo desktop/tablet */}
-        <button
-          className="productos-btn productos-btn-small productos-btn-desktop"
-          onClick={() => setShowModal(true)}
-        >
-          Agregar producto
-        </button>
-        <button
-          className="productos-btn productos-btn-small productos-btn-desktop"
-          onClick={() => setShowCategorias(true)}
-        >
-          Categorías
-        </button>
-      </div>
+
       {/* Botón flotante + solo mobile */}
       <button
         className="productos-fab-mobile"
