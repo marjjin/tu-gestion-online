@@ -386,6 +386,10 @@
   .productos-header-flex {
     flex-wrap: wrap;
     justify-content: center;
+    gap: 0;
+  }
+  .productos-list {
+    height: 60vh;
   }
 }
 
