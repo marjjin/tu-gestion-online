@@ -8,13 +8,6 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  @import "./menuAccionesProducto.css";
-  @import "./buscadorProducto.css";
-  @import "./listadoProducto.css";
-  @import "./botonesProducto.css";
-  @import "./layoutProducto.css";
-  flex-direction: column;
   align-items: center;
   max-height: 70%;
   overflow-y: auto;
@@ -68,6 +61,53 @@
   margin: 0 auto;
   box-sizing: border-box;
 }
+
+/* Checkbox de selección */
+.producto-checkbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  flex-shrink: 0;
+  accent-color: #2563eb;
+}
+
+/* Contenedor de seleccionar todos */
+.productos-select-all-container {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background: #f1f5f9;
+  border-radius: 0.4rem;
+  border: 2px solid #cbd5e1;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.productos-select-all-container:hover {
+  border-color: #2563eb;
+  background: #eff6ff;
+}
+
+.productos-select-all-label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  font-weight: 600;
+  color: #475569;
+  user-select: none;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.productos-select-all-label:hover {
+  color: #2563eb;
+}
+
+.productos-select-all-label input[type="checkbox"] {
+  margin: 0;
+}
+
 .producto-row {
   display: flex;
   align-items: center;
@@ -79,7 +119,14 @@
   width: 100%;
   box-sizing: border-box;
   height: 40px;
+  transition: background-color 0.2s;
 }
+
+.producto-row:has(.producto-checkbox:checked) {
+  background: #eff6ff;
+  border: 2px solid #2563eb;
+}
+
 .producto-nombre-listado {
   font-size: 1rem;
   font-weight: 700;
@@ -372,10 +419,12 @@
   gap: 0.7rem;
   margin-bottom: 1.2rem;
   margin-top: 0.2rem;
+  flex-wrap: wrap;
+  align-items: center;
 }
 .productos-search-row-mobile .productos-search-input {
   flex: 1;
-  min-width: 0;
+  min-width: 200px;
 }
 @media (max-width: 799px) {
   .productos-search-row-mobile {
@@ -383,6 +432,19 @@
     gap: 0.5rem;
     width: 70vw;
   }
+  
+  .productos-select-all-container {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+  
+  .productos-bulk-actions-inline {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 0.5rem;
+    justify-content: space-between;
+  }
+  
   .productos-header-flex {
     flex-wrap: wrap;
     justify-content: center;
@@ -413,5 +475,334 @@
   .productos-list-placeholder {
     padding: 1rem;
     font-size: 1rem;
+  }
+}
+
+/* Estilos para barra de acciones masivas */
+.productos-bulk-actions-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+  animation: slideIn 0.3s ease-out;
+  margin-left: 0.7rem;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.bulk-selected-count-inline {
+  font-weight: 600;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.bulk-action-btn-inline {
+  padding: 0.4rem 0.9rem;
+  border: 2px solid white;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  font-weight: 600;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.bulk-action-btn-inline:hover {
+  background: white;
+  color: #2563eb;
+  transform: translateY(-1px);
+}
+
+.bulk-action-btn-inline.bulk-cancel-inline {
+  background: rgba(239, 68, 68, 0.3);
+  border-color: #fca5a5;
+}
+
+.bulk-action-btn-inline.bulk-cancel-inline:hover {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: white;
+}
+
+.productos-bulk-actions-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 0.7rem;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bulk-selected-count {
+  font-weight: 600;
+  font-size: 1.05rem;
+  flex: 1;
+  min-width: 150px;
+}
+
+.bulk-action-btn {
+  padding: 0.6rem 1.2rem;
+  border: 2px solid white;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.95rem;
+}
+
+.bulk-action-btn:hover {
+  background: white;
+  color: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.bulk-action-btn.bulk-cancel {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: #fca5a5;
+}
+
+.bulk-action-btn.bulk-cancel:hover {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: white;
+}
+
+/* Estilos para modal de edición masiva */
+.bulk-modal-subtitle {
+  color: #64748b;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.bulk-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.bulk-edit-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.bulk-edit-form input,
+.bulk-edit-form select {
+  padding: 0.75rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.bulk-edit-form input:focus,
+.bulk-edit-form select:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+.bulk-edit-form small {
+  color: #64748b;
+  font-weight: 400;
+  font-size: 0.85rem;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.modal-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 1rem;
+}
+
+.modal-btn-primary {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: white;
+}
+
+.modal-btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+}
+
+.modal-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.modal-btn-secondary {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.modal-btn-secondary:hover {
+  background: #cbd5e1;
+}
+
+/* Ícono de éxito en modal */
+.bulk-success-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: white;
+  margin: 0 auto 1.5rem auto;
+  animation: scaleIn 0.4s ease-out;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.bulk-success-icon + h2 {
+  color: #059669;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+/* Modal de confirmación */
+.modal-confirm {
+  max-width: 500px;
+}
+
+.confirm-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  margin: 0 auto 1.5rem auto;
+  animation: pulse 2s infinite;
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.confirm-icon + h2 {
+  color: #d97706;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.confirm-details {
+  background: #fffbeb;
+  border: 2px solid #fcd34d;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.confirm-details p {
+  margin: 0.5rem 0;
+  color: #78350f;
+  font-size: 0.95rem;
+}
+
+.confirm-details p:first-child {
+  margin-top: 0;
+}
+
+.confirm-details p:last-child {
+  margin-bottom: 0;
+}
+
+.confirm-warning {
+  text-align: center;
+  color: #dc2626;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 799px) {
+  .productos-bulk-actions-bar {
+    padding: 0.8rem 1rem;
+    gap: 0.7rem;
+  }
+  
+  .bulk-selected-count {
+    font-size: 0.95rem;
+    min-width: 100%;
+  }
+  
+  .bulk-action-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .modal-actions {
+    flex-direction: column;
+  }
+  
+  .modal-btn {
+    width: 100%;
   }
 }
