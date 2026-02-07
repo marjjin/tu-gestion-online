@@ -63,7 +63,12 @@ export function Ventas({ productos, email }) {
         .eq("abierto", true)
         .order("fecha_apertura", { ascending: false })
         .limit(1)
-        .single();
+        .maybeSingle();
+      if (error) {
+        setTurnoAbierto(false);
+        setTurnoId(null);
+        return;
+      }
       if (data && data.id) {
         setTurnoAbierto(true);
         setTurnoId(data.id);
