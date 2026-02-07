@@ -1,0 +1,135 @@
+.modalventa-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modalventa-contenido {
+  background: #fff;
+  padding: 32px 24px;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+  min-width: 900px;
+  max-width: 98vw;
+  text-align: center;
+}
+
+.modalventa-buscador {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 18px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.modalventa-listado {
+  min-height: 60px;
+  margin-bottom: 18px;
+}
+
+.modalventa-producto {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f7f7f7;
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+}
+
+.modalventa-eliminar {
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 10px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.modalventa-total {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 18px;
+}
+
+.modalventa-acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.modalventa-confirmar {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.modalventa-cerrar {
+  background: #888;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.modalventa-vacio {
+  color: #888;
+  font-size: 1rem;
+}
+
+.modalventa-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 18px;
+}
+.modalventa-tabla th,
+.modalventa-tabla td {
+  border: 1px solid #e0e0e0;
+  padding: 8px 10px;
+  text-align: left;
+}
+.modalventa-tabla th {
+  background: #f2f2f2;
+  font-weight: bold;
+}
+.modalventa-tabla td {
+  background: #fff;
+}
+
+.modalventa-descuento {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+.modalventa-descuento-btn {
+  background: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.modalventa-descuento-btn:hover {
+  background: #218838;
+}

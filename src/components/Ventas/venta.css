@@ -1,0 +1,125 @@
+/* Estilos básicos para la sección de ventas */
+.ventas-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 10px 15px;
+}
+
+.ventas-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.ventas-header h2 {
+  font-size: 2rem;
+  color: #222;
+  margin: 0;
+}
+
+.btn-abrir-turno {
+  padding: 10px 24px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-abrir-turno:hover {
+  background: #0056b3;
+}
+
+.ventas-listado {
+  background: #f7f7f7;
+  border-radius: 8px;
+  padding: 0 0 16px 0;
+}
+
+.ventas-lista-titulos {
+  display: flex;
+  justify-content: space-around;
+  font-weight: bold;
+  padding: 10px 31px 8px 31px;
+  border-bottom: 2px solid #e0e0e0;
+  color: #222;
+  background: #f3f6fa;
+  font-size: 1.1rem;
+}
+
+.ventas-lista-cuerpo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 31px;
+  max-height: 400px;
+  overflow-y: auto;
+  margin: 5px;
+}
+
+.ventas-vacio {
+  color: #888;
+  font-size: 1.1rem;
+}
+
+.modal-apertura-turno {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-apertura-turno.oculto {
+  display: none;
+}
+
+.modal-contenido {
+  background: #fff;
+  padding: 32px 24px;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+  min-width: 300px;
+  text-align: center;
+}
+
+.btn-cerrar-modal {
+  margin-top: 24px;
+  padding: 10px 24px;
+  background: #888;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-cerrar-modal:hover {
+  background: #555;
+}
+
+.btn-cerrar-turno {
+  padding: 10px 24px;
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-cerrar-turno:hover {
+  background: #b92d1f;
+}

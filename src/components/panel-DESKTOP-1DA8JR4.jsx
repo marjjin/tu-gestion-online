@@ -1,34 +1,14 @@
 import "../style/panel.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { Productos } from "./Productos/Productos";
-import { Ventas } from "./Ventas/Ventas";
 import { ButtonCerrarSesion } from "./ButtonCerrarSesion";
 import { HamburgerMenu } from "./HamburgerMenu";
 import { supabase } from "../supabase"; // Asegúrate de importar supabase
+import { Ventas } from "./Ventas/Ventas";
 
 export function Panel({ email }) {
-  const [productos, setProductos] = useState([]);
-
-  // Obtener productos al montar el panel
-  useEffect(() => {
-    async function fetchProductos() {
-      const {
-        data: { user },
-        error: userError,
-      } = await supabase.auth.getUser();
-      if (userError || !user) return;
-      const { data, error } = await supabase
-        .from("productos")
-        .select()
-        .eq("user_id", user.id);
-      if (!error && data) {
-        setProductos(data);
-      }
-    }
-    fetchProductos();
-  }, []);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -49,6 +29,9 @@ export function Panel({ email }) {
   const selected =
     menuOptions.find((opt) => location.pathname.includes(opt.key))?.key ||
     "productos";
+
+  // Estado global de productos filtrados
+  const [productosFiltrados, setProductosFiltrados] = useState([]);
 
   // Función para logout
   const handleLogout = async () => {
@@ -94,11 +77,14 @@ export function Panel({ email }) {
           </div>
         </header>
         <section className="panel-content">
-          {selected === "productos" && <Productos />}
-          {selected === "ventas" && (
-            <Ventas productos={productos} email={email} />
-          )}
-          {selected !== "productos" && selected !== "ventas" && (
+          {selected === "productos" ? (
+            <Productos
+              productosFiltrados={productosFiltrados}
+              setProductosFiltrados={setProductosFiltrados}
+            />
+          ) : selected === "ventas" ? (
+            <Ventas productos={productosFiltrados} email={email} />
+          ) : (
             <>
               <h1>{menuOptions.find((o) => o.key === selected)?.label}</h1>
               <p>Contenido de la sección {selected}.</p>

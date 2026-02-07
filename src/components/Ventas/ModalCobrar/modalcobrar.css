@@ -1,0 +1,60 @@
+.modalcobrar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2100;
+}
+
+.modalcobrar-contenido {
+  background: #fff;
+  padding: 32px 24px;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+  min-width: 400px;
+  max-width: 95vw;
+  text-align: center;
+}
+
+.modalcobrar-tipos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  margin: 24px 0;
+}
+
+.modalcobrar-tipo-btn {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 32px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.modalcobrar-tipo-btn.selected {
+  background: #0056b3;
+  border: 2px solid #28a745;
+  box-shadow: 0 0 0 3px #28a745;
+}
+.modalcobrar-tipo-btn:hover {
+  background: #0056b3;
+}
+
+.modalcobrar-cerrar {
+  background: #888;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 18px;
+}

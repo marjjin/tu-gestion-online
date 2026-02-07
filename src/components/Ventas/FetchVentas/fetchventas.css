@@ -1,0 +1,24 @@
+/* CSS limpio para el listado de ventas */
+.venta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  padding: 10px 31px;
+  color: #222;
+  min-width: 420px;
+  width: 100%;
+  margin: 0 auto 8px auto;
+  letter-spacing: 0.01em;
+}
+.venta-row span {
+  flex: 1;
+  text-align: left;
+}
+.venta-row span:last-child {
+  text-align: right;
+  font-weight: bold;
+  color: #007bff;
+}

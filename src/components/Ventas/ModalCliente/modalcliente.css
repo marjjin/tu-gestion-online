@@ -1,0 +1,63 @@
+.modalcliente-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2300;
+}
+
+.modalcliente-contenido {
+  background: #fff;
+  padding: 32px 24px;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+  min-width: 350px;
+  max-width: 95vw;
+  text-align: center;
+}
+
+.modalcliente-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  margin-bottom: 16px;
+}
+
+.modalcliente-acciones {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.modalcliente-guardar {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.modalcliente-guardar:disabled {
+  background: #b7d0f7;
+  color: #fff;
+  cursor: not-allowed;
+}
+
+.modalcliente-cerrar {
+  background: #888;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 1rem;
+  cursor: pointer;
+}
