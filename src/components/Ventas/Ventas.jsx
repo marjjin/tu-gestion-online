@@ -45,10 +45,12 @@ export function Ventas({ productos, email }) {
 
   // Consultar turno abierto al cargar
   useEffect(() => {
-    // Obtener user_id al montar
-    supabase.auth.getUser().then(({ data }) => {
-      if (data?.user?.id) setUserId(data.user.id);
-    });
+    let cancel = false;
+    const getUserId = async () => {
+      const { data } = await supabase.auth.getUser();
+      if (!cancel && data?.user?.id) setUserId(data.user.id);
+    };
+    getUserId();
     const fetchTurno = async () => {
       const { data, error } = await supabase
         .from("turnos")
@@ -67,6 +69,9 @@ export function Ventas({ productos, email }) {
     };
     fetchTurno();
     actualizarProductos(); // Cargar productos al montar el componente
+    return () => {
+      cancel = true;
+    };
   }, []);
 
   // Abrir turno
@@ -126,7 +131,11 @@ export function Ventas({ productos, email }) {
           <span>Cliente</span>
           <span>Total</span>
         </div>
-        <FetchVentas turnoId={turnoId} userId={userId} />
+        {userId ? (
+          <FetchVentas turnoId={turnoId} userId={userId} />
+        ) : (
+          <div className="ventas-lista-cuerpo">Cargando ventas...</div>
+        )}
       </div>
       <ModalVenta
         open={modalVentaAbierto}
