@@ -7,11 +7,7 @@ export function FetchVentas({ turnoId, userId }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!userId) {
-      setVentas([]);
-      setLoading(false);
-      return;
-    }
+    if (!userId) return;
     const fetchVentas = async () => {
       setLoading(true);
       let query = supabase
