@@ -7,6 +7,7 @@ import { supabase } from "../../supabase";
 import "./venta.css";
 
 export function Ventas({ productos, email }) {
+  const [userId, setUserId] = useState(null);
   const descuentoModal = useDescuentoModal();
   const [productosActualizados, setProductosActualizados] = useState(productos);
   // Estado global para el cliente seleccionado
@@ -44,6 +45,10 @@ export function Ventas({ productos, email }) {
 
   // Consultar turno abierto al cargar
   useEffect(() => {
+    // Obtener user_id al montar
+    supabase.auth.getUser().then(({ data }) => {
+      if (data?.user?.id) setUserId(data.user.id);
+    });
     const fetchTurno = async () => {
       const { data, error } = await supabase
         .from("turnos")
@@ -121,7 +126,7 @@ export function Ventas({ productos, email }) {
           <span>Cliente</span>
           <span>Total</span>
         </div>
-        <FetchVentas turnoId={turnoId} />
+        <FetchVentas turnoId={turnoId} userId={userId} />
       </div>
       <ModalVenta
         open={modalVentaAbierto}

@@ -34,19 +34,24 @@ export function ModalCliente({ open, cliente, onGuardar, onClose }) {
     }
   }, [open, cliente]);
 
-  // Buscar clientes por nombre/email/telefono
+  // Buscar clientes por nombre/email/telefono, filtrando por user_id
   useEffect(() => {
-    if (!open || nombre.trim().length < 2) {
-      setResultados([]);
-      setClienteExistente(null);
-      return;
-    }
-    setBuscando(true);
-    const buscar = setTimeout(async () => {
+    let userId = null;
+    const buscarClientes = async () => {
+      if (!open || nombre.trim().length < 2) {
+        setResultados([]);
+        setClienteExistente(null);
+        return;
+      }
+      setBuscando(true);
+      // Obtener user_id
+      const { data: userData } = await supabase.auth.getUser();
+      userId = userData?.user?.id;
       const { data, error } = await supabase
         .from("clientes")
         .select("id, nombre, email, telefono, direccion, dni")
-        .ilike("nombre", `%${nombre.trim()}%`);
+        .ilike("nombre", `%${nombre.trim()}%`)
+        .eq("user_id", userId);
       if (!error && data && data.length > 0) {
         setResultados(data);
         // Si hay coincidencia exacta, marcar como existente
@@ -59,7 +64,8 @@ export function ModalCliente({ open, cliente, onGuardar, onClose }) {
         setClienteExistente(null);
       }
       setBuscando(false);
-    }, 400);
+    };
+    const buscar = setTimeout(buscarClientes, 400);
     return () => clearTimeout(buscar);
   }, [nombre, open]);
 

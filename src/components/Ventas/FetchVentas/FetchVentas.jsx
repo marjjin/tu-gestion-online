@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "../../../supabase";
 import "./fetchventas.css";
 
-export function FetchVentas({ turnoId }) {
+export function FetchVentas({ turnoId, userId }) {
   const [ventas, setVentas] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -15,13 +15,16 @@ export function FetchVentas({ turnoId }) {
       if (turnoId) {
         query = query.eq("turno_id", turnoId);
       }
+      if (userId) {
+        query = query.eq("user_id", userId);
+      }
       query = query.order("created_at", { ascending: false });
       const { data: ventasData, error } = await query;
       if (!error) setVentas(ventasData || []);
       setLoading(false);
     };
     fetchVentas();
-  }, [turnoId]);
+  }, [turnoId, userId]);
 
   if (loading)
     return <div className="ventas-lista-cuerpo">Cargando ventas...</div>;
