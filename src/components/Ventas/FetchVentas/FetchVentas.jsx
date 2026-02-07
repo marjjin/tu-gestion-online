@@ -7,6 +7,11 @@ export function FetchVentas({ turnoId, userId }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!userId) {
+      setVentas([]);
+      setLoading(false);
+      return;
+    }
     const fetchVentas = async () => {
       setLoading(true);
       let query = supabase
@@ -15,9 +20,7 @@ export function FetchVentas({ turnoId, userId }) {
       if (turnoId) {
         query = query.eq("turno_id", turnoId);
       }
-      if (userId) {
-        query = query.eq("user_id", userId);
-      }
+      query = query.eq("user_id", userId);
       query = query.order("created_at", { ascending: false });
       const { data: ventasData, error } = await query;
       if (!error) setVentas(ventasData || []);
