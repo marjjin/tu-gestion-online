@@ -16,8 +16,9 @@
   padding: 32px 24px;
   border-radius: 10px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
-  min-width: 350px;
-  max-width: 95vw;
+  width: min(560px, 92vw);
+  max-height: 90vh;
+  overflow: auto;
   text-align: center;
 }
 
@@ -83,4 +84,37 @@
   padding: 8px 18px;
   font-size: 1rem;
   cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .modaldescuento-overlay {
+    align-items: flex-start;
+    padding: 16px 10px;
+  }
+
+  .modaldescuento-contenido {
+    width: 100%;
+    padding: 24px 16px;
+  }
+
+  .modaldescuento-total {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .modaldescuento-tipo {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .modaldescuento-acciones {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .modaldescuento-aplicar,
+  .modaldescuento-cerrar {
+    width: 100%;
+  }
 }

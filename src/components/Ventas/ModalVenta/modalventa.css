@@ -16,8 +16,9 @@
   padding: 32px 24px;
   border-radius: 10px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
-  min-width: 900px;
-  max-width: 98vw;
+  width: min(980px, 96vw);
+  max-height: 90vh;
+  overflow: auto;
   text-align: center;
 }
 
@@ -132,4 +133,55 @@
 }
 .modalventa-descuento-btn:hover {
   background: #218838;
+}
+
+@media (max-width: 900px) {
+  .modalventa-overlay {
+    align-items: flex-start;
+    padding: 16px 10px;
+  }
+
+  .modalventa-contenido {
+    width: 100%;
+    padding: 24px 16px;
+  }
+
+  .modalventa-tabla {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 600px) {
+  .modalventa-producto {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .modalventa-total {
+    justify-content: space-between;
+    font-size: 1.05rem;
+  }
+
+  .modalventa-acciones {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .modalventa-confirmar,
+  .modalventa-cerrar {
+    width: 100%;
+  }
+
+  .modalventa-descuento {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .modalventa-descuento-btn {
+    width: 100%;
+  }
 }

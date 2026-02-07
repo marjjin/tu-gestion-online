@@ -16,8 +16,9 @@
   padding: 32px 24px;
   border-radius: 10px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
-  min-width: 400px;
-  max-width: 95vw;
+  width: min(520px, 92vw);
+  max-height: 90vh;
+  overflow: auto;
   text-align: center;
 }
 
@@ -57,4 +58,21 @@
   font-size: 1rem;
   cursor: pointer;
   margin-top: 18px;
+}
+
+@media (max-width: 600px) {
+  .modalcobrar-overlay {
+    align-items: flex-start;
+    padding: 16px 10px;
+  }
+
+  .modalcobrar-contenido {
+    width: 100%;
+    padding: 24px 16px;
+  }
+
+  .modalcobrar-tipo-btn {
+    width: 100%;
+    padding: 12px 18px;
+  }
 }

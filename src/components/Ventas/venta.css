@@ -123,3 +123,39 @@
 .btn-cerrar-turno:hover {
   background: #b92d1f;
 }
+
+
+@media screen and (max-width: 600px) {
+  .ventas-container {
+    padding: 10px;
+  }
+
+  .ventas-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .btn-abrir-turno,.btn-cerrar-turno {
+    padding: 8px 15px;
+    font-size: .8rem;
+  }
+
+  .ventas-lista-titulos {
+    font-size: .8rem;
+    padding: 8px 15px;
+  }
+
+  .ventas-lista-cuerpo {
+    padding: 8px 15px;
+  }
+  
+}
+
+@media screen and (max-width: 380px) {
+
+  .btn-abrir-turno,.btn-cerrar-turno {
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-size: .8rem;
+}
+  
+}

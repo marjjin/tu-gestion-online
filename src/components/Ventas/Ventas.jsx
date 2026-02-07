@@ -231,6 +231,7 @@ export function Ventas({ productos, email }) {
           setProductosSeleccionados([]);
           setTipoSeleccionado(null);
           setCliente(null);
+          descuentoModal.reset();
           // Cerrar el modal de descuento si está abierto
           if (typeof descuentoModal.cerrar === "function") {
             descuentoModal.cerrar();

@@ -7,6 +7,7 @@ export function useDescuentoModal() {
 
   const abrir = () => setModalAbierto(true);
   const cerrar = () => setModalAbierto(false);
+  const reset = () => setDescuento(0);
   const aplicar = (valor) => {
     setDescuento(valor);
     cerrar();
@@ -21,5 +22,5 @@ export function useDescuentoModal() {
     />
   );
 
-  return { descuento, abrir, render };
+  return { descuento, abrir, cerrar, reset, render };
 }

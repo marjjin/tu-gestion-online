@@ -16,8 +16,9 @@
   padding: 32px 24px;
   border-radius: 10px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
-  min-width: 350px;
-  max-width: 95vw;
+  width: min(520px, 92vw);
+  max-height: 90vh;
+  overflow: auto;
   text-align: center;
 }
 
@@ -60,4 +61,26 @@
   padding: 8px 18px;
   font-size: 1rem;
   cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .modalcliente-overlay {
+    align-items: flex-start;
+    padding: 16px 10px;
+  }
+
+  .modalcliente-contenido {
+    width: 100%;
+    padding: 24px 16px;
+  }
+
+  .modalcliente-acciones {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .modalcliente-guardar,
+  .modalcliente-cerrar {
+    width: 100%;
+  }
 }

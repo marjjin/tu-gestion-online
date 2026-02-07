@@ -3,7 +3,7 @@ import "./modaldescuento.css";
 
 export function ModalDescuento({ open, total, onAplicar, onClose }) {
   const [tipo, setTipo] = useState("monto"); // "monto" o "porcentaje"
-  const [valor, setValor] = useState(0);
+  const [valor, setValor] = useState("");
   const inputRef = useRef(null);
 
   // Calcular descuento antes del useEffect
@@ -17,7 +17,8 @@ export function ModalDescuento({ open, total, onAplicar, onClose }) {
 
   useEffect(() => {
     if (open && inputRef.current) inputRef.current.focus();
-    if (!open) setValor(0);
+    if (open) setValor("");
+    if (!open) setValor("");
 
     if (!open) return;
     const handleKeyDown = (e) => {
