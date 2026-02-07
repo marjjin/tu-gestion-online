@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 import { supabase } from "../../../supabase";
 import "./fetchventas.css";
 
-export function FetchVentas({ turnoId, userId }) {
+export function FetchVentas({
+  turnoId,
+  userId,
+  selectedIds = [],
+  onToggleSelect,
+  refreshKey = 0,
+}) {
   const [ventas, setVentas] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -23,7 +29,7 @@ export function FetchVentas({ turnoId, userId }) {
       setLoading(false);
     };
     fetchVentas();
-  }, [turnoId, userId]);
+  }, [turnoId, userId, refreshKey]);
 
   if (loading)
     return <div className="ventas-lista-cuerpo">Cargando ventas...</div>;
@@ -39,6 +45,14 @@ export function FetchVentas({ turnoId, userId }) {
     <div className="ventas-lista-cuerpo">
       {ventas.map((venta) => (
         <div className="venta-row" key={venta.id}>
+          <span className="venta-col-seleccion">
+            <input
+              type="checkbox"
+              className="venta-checkbox"
+              checked={selectedIds.includes(venta.id)}
+              onChange={() => onToggleSelect && onToggleSelect(venta.id)}
+            />
+          </span>
           <span>
             {venta.created_at
               ? new Date(venta.created_at).toLocaleDateString()

@@ -4,6 +4,7 @@ import { ModalVenta } from "./ModalVenta/ModalVenta";
 import { ModalCobrar } from "./ModalCobrar/ModalCobrar";
 import { useDescuentoModal } from "./ModalDescuento/useDescuentoModal.jsx";
 import { supabase } from "../../supabase";
+import { ModalEliminarVentas } from "./ModalEliminarVentas/ModalEliminarVentas";
 import "./venta.css";
 
 export function Ventas({ productos, email }) {
@@ -32,6 +33,10 @@ export function Ventas({ productos, email }) {
   const [modalCobrarAbierto, setModalCobrarAbierto] = useState(false);
   const [tipoSeleccionado, setTipoSeleccionado] = useState(null);
   const [turnoId, setTurnoId] = useState(null);
+  const [ventasSeleccionadas, setVentasSeleccionadas] = useState([]);
+  const [modalEliminarAbierto, setModalEliminarAbierto] = useState(false);
+  const [eliminando, setEliminando] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   // Estados para productos seleccionados y total (lógica a implementar luego)
   const [productosSeleccionados, setProductosSeleccionados] = useState([]);
@@ -74,6 +79,10 @@ export function Ventas({ productos, email }) {
     };
   }, []);
 
+  useEffect(() => {
+    setVentasSeleccionadas([]);
+  }, [turnoId, userId, refreshKey]);
+
   // Abrir turno
   const handleAbrirTurno = async () => {
     const {
@@ -103,6 +112,47 @@ export function Ventas({ productos, email }) {
     setTurnoId(null);
   };
 
+  const toggleVentaSeleccionada = (ventaId) => {
+    setVentasSeleccionadas((prev) =>
+      prev.includes(ventaId)
+        ? prev.filter((id) => id !== ventaId)
+        : [...prev, ventaId]
+    );
+  };
+
+  const confirmarEliminarVentas = async () => {
+    if (!ventasSeleccionadas.length) return;
+    setEliminando(true);
+    const { error: errorDetalles } = await supabase
+      .from("detalle_ventas")
+      .delete()
+      .in("venta_id", ventasSeleccionadas);
+    if (errorDetalles) {
+      setEliminando(false);
+      alert(
+        "Error al eliminar detalles: " +
+          (errorDetalles?.message || JSON.stringify(errorDetalles))
+      );
+      return;
+    }
+    const { error: errorVentas } = await supabase
+      .from("ventas")
+      .delete()
+      .in("id", ventasSeleccionadas);
+    if (errorVentas) {
+      setEliminando(false);
+      alert(
+        "Error al eliminar ventas: " +
+          (errorVentas?.message || JSON.stringify(errorVentas))
+      );
+      return;
+    }
+    setEliminando(false);
+    setModalEliminarAbierto(false);
+    setVentasSeleccionadas([]);
+    setRefreshKey((prev) => prev + 1);
+  };
+
   return (
     <div className="ventas-container">
       <div className="ventas-header">
@@ -126,13 +176,32 @@ export function Ventas({ productos, email }) {
         )}
       </div>
       <div className="ventas-listado">
+        {ventasSeleccionadas.length > 0 && (
+          <div className="ventas-acciones">
+            <span>Seleccionadas: {ventasSeleccionadas.length}</span>
+            <button
+              className="btn-eliminar-ventas"
+              onClick={() => setModalEliminarAbierto(true)}
+            >
+              Eliminar
+            </button>
+          </div>
+        )}
         <div className="ventas-lista-titulos">
+          <span></span>
+          <span>Fecha</span>
           <span>Hora</span>
           <span>Cliente</span>
           <span>Total</span>
         </div>
         {userId ? (
-          <FetchVentas turnoId={turnoId} userId={userId} />
+          <FetchVentas
+            turnoId={turnoId}
+            userId={userId}
+            selectedIds={ventasSeleccionadas}
+            onToggleSelect={toggleVentaSeleccionada}
+            refreshKey={refreshKey}
+          />
         ) : (
           <div className="ventas-lista-cuerpo">Cargando ventas...</div>
         )}
@@ -238,6 +307,13 @@ export function Ventas({ productos, email }) {
           }
           // Aquí podrías mostrar un mensaje de éxito
         }}
+      />
+      <ModalEliminarVentas
+        open={modalEliminarAbierto}
+        cantidad={ventasSeleccionadas.length}
+        onCancel={() => setModalEliminarAbierto(false)}
+        onConfirm={confirmarEliminarVentas}
+        deleting={eliminando}
       />
     </div>
   );

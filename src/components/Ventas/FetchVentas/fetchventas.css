@@ -18,6 +18,18 @@
   text-align: left;
   font-size: 1rem;
 }
+
+.venta-row .venta-col-seleccion {
+  flex: 0 0 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.venta-checkbox {
+  width: 16px;
+  height: 16px;
+}
 .venta-row span:last-child {
   text-align: right;
   font-weight: bold;
@@ -29,7 +41,7 @@
   .venta-row {
     flex-direction: row;
     align-items: center;
-    padding: 12px 20px;
+    padding: 10px 12px;
   }
   .venta-row span {
     text-align: left;
@@ -39,6 +51,15 @@
     text-align: left;
     font-size: 0.7rem;
     color: #007bff;
+  }
+
+  .venta-row .venta-col-seleccion {
+    flex: 0 0 28px;
+  }
+
+  .venta-checkbox {
+    width: 14px;
+    height: 14px;
   }
   
 }

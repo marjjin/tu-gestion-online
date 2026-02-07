@@ -44,13 +44,51 @@
 
 .ventas-lista-titulos {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   font-weight: bold;
   padding: 10px 31px 8px 31px;
   border-bottom: 2px solid #e0e0e0;
   color: #222;
   background: #f3f6fa;
   font-size: 1.1rem;
+}
+
+.ventas-lista-titulos span {
+  flex: 1;
+  text-align: left;
+}
+
+.ventas-lista-titulos span:last-child {
+  text-align: right;
+}
+
+.ventas-lista-titulos span:first-child {
+  flex: 0 0 36px;
+  text-align: center;
+}
+
+.ventas-acciones {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 31px 0 31px;
+  color: #222;
+  font-weight: 600;
+}
+
+.btn-eliminar-ventas {
+  padding: 8px 16px;
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-eliminar-ventas:hover {
+  background: #b92d1f;
 }
 
 .ventas-lista-cuerpo {
@@ -142,6 +180,20 @@
   .ventas-lista-titulos {
     font-size: .8rem;
     padding: 8px 15px;
+  }
+
+  .ventas-lista-titulos span:first-child {
+    flex: 0 0 28px;
+  }
+
+  .ventas-acciones {
+    padding: 8px 15px 0 15px;
+    font-size: 0.85rem;
+  }
+
+  .btn-eliminar-ventas {
+    padding: 7px 12px;
+    font-size: 0.8rem;
   }
 
   .ventas-lista-cuerpo {

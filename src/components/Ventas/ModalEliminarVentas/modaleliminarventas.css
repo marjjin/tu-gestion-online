@@ -1,0 +1,64 @@
+.modal-eliminar-ventas {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+}
+
+.modal-eliminar-contenido {
+  background: #fff;
+  border-radius: 10px;
+  padding: 22px 18px;
+  width: min(420px, 90%);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.modal-eliminar-contenido h3 {
+  margin: 0 0 10px 0;
+  color: #222;
+}
+
+.modal-eliminar-contenido p {
+  margin: 0 0 16px 0;
+  color: #444;
+}
+
+.modal-eliminar-botones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn-cancelar,
+.btn-confirmar {
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.btn-cancelar {
+  background: #e0e0e0;
+  color: #222;
+}
+
+.btn-confirmar {
+  background: #e74c3c;
+  color: #fff;
+}
+
+.btn-cancelar:disabled,
+.btn-confirmar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media screen and (max-width: 600px) {
+  .modal-eliminar-contenido {
+    padding: 18px 16px;
+  }
+}
