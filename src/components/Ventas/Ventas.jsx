@@ -252,14 +252,56 @@ export function Ventas({ productos, email }) {
         }}
         onClose={() => setModalCobrarAbierto(false)}
         onFinalizar={async () => {
-          // Guardar la venta normalizada en Supabase
           const user =
             supabase.auth.getUser && (await supabase.auth.getUser()).data.user;
+          if (!user?.id) return;
+
+          const seleccionados = productosSeleccionados.map((p) => ({
+            ...p,
+            cantidad: Number(p.cantidad) || 0,
+          }));
+
+          // Validar stock antes de guardar la venta
+          if (seleccionados.length > 0) {
+            const ids = seleccionados.map((p) => p.id);
+            const { data: stocks, error: errorStock } = await supabase
+              .from("productos")
+              .select("id,stock")
+              .in("id", ids)
+              .eq("user_id", user.id);
+            if (errorStock) {
+              alert(
+                "Error al validar stock: " +
+                  (errorStock?.message || JSON.stringify(errorStock))
+              );
+              return;
+            }
+            if (!stocks || stocks.length === 0) {
+              alert("No se pudo validar stock. Intenta nuevamente.");
+              return;
+            }
+            const stockMap = new Map(
+              (stocks || []).map((row) => [row.id, Number(row.stock) || 0])
+            );
+            const faltantes = seleccionados.filter((p) => {
+              const actual = stockMap.get(p.id);
+              if (typeof actual !== "number") return true;
+              return actual < p.cantidad;
+            });
+            if (faltantes.length > 0) {
+              alert(
+                "Stock insuficiente para: " +
+                  faltantes.map((p) => p.nombre).join(", ")
+              );
+              return;
+            }
+          }
+
           // 1. Insertar la venta (sin productos)
           const venta = {
             total: total - (descuentoModal.descuento || 0),
             tipo_pago: tipoSeleccionado,
-            user_id: user?.id,
+            user_id: user.id,
             created_at: new Date().toISOString(),
             descuento: descuentoModal.descuento || 0,
             turno_id: turnoId,
@@ -277,8 +319,9 @@ export function Ventas({ productos, email }) {
             );
             return;
           }
+
           // 2. Insertar los productos en detalle_ventas
-          const detalles = productosSeleccionados.map((prod) => ({
+          const detalles = seleccionados.map((prod) => ({
             venta_id: ventaInsertada.id,
             producto_id: prod.id,
             cantidad: prod.cantidad,
@@ -296,16 +339,66 @@ export function Ventas({ productos, email }) {
             );
             return;
           }
+
+          // 3. Descontar stock
+          if (seleccionados.length > 0) {
+            const ids = seleccionados.map((p) => p.id);
+            const { data: stocks, error: errorStockUpdate } = await supabase
+              .from("productos")
+              .select("id,stock")
+              .in("id", ids)
+              .eq("user_id", user.id);
+            if (errorStockUpdate) {
+              alert(
+                "La venta se guardo, pero hubo un error al descontar stock: " +
+                  (errorStockUpdate?.message || JSON.stringify(errorStockUpdate))
+              );
+            } else {
+              const stockMap = new Map(
+                (stocks || []).map((row) => [row.id, Number(row.stock) || 0])
+              );
+              const updates = seleccionados.map((p) => {
+                const actual = stockMap.get(p.id);
+                const nuevo = typeof actual === "number" ? actual - p.cantidad : 0;
+                return { id: p.id, stock: Math.max(0, nuevo) };
+              });
+              const results = await Promise.all(
+                updates.map((u) =>
+                  supabase
+                    .from("productos")
+                    .update({ stock: u.stock })
+                    .eq("id", u.id)
+                    .eq("user_id", user.id)
+                    .select("id,stock")
+                )
+              );
+              const hasError = results.some((r) => r.error);
+              const updatedRows = results.flatMap((r) => r.data || []);
+              if (hasError || updatedRows.length === 0) {
+                alert("La venta se guardo, pero no se pudo actualizar el stock.");
+              } else {
+                const updateMap = new Map(
+                  updatedRows.map((row) => [row.id, row.stock])
+                );
+                setProductosActualizados((prev) =>
+                  prev.map((p) =>
+                    updateMap.has(p.id)
+                      ? { ...p, stock: updateMap.get(p.id) }
+                      : p
+                  )
+                );
+              }
+            }
+          }
+
           setModalCobrarAbierto(false);
           setProductosSeleccionados([]);
           setTipoSeleccionado(null);
           setCliente(null);
           descuentoModal.reset();
-          // Cerrar el modal de descuento si está abierto
           if (typeof descuentoModal.cerrar === "function") {
             descuentoModal.cerrar();
           }
-          // Aquí podrías mostrar un mensaje de éxito
         }}
       />
       <ModalEliminarVentas
