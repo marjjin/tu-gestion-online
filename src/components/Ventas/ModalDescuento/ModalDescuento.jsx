@@ -15,11 +15,16 @@ export function ModalDescuento({ open, total, onAplicar, onClose }) {
   }
   const totalConDescuento = Math.max(total - descuento, 0);
 
+  // Limpiar el valor solo cuando el modal se abre por primera vez
   useEffect(() => {
-    if (open && inputRef.current) inputRef.current.focus();
-    if (open) setValor("");
+    if (open) {
+      setValor("");
+      if (inputRef.current) inputRef.current.focus();
+    }
     if (!open) setValor("");
+  }, [open]);
 
+  useEffect(() => {
     if (!open) return;
     const handleKeyDown = (e) => {
       if (e.key === "Escape") {
